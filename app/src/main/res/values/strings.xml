@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My OSM</string>
+    <string name="offline_mode">Оффлайн режим</string>
 </resources>
