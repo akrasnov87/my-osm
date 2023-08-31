@@ -20,6 +20,7 @@ import org.osmdroid.tileprovider.modules.MapTileFileArchiveProvider;
 import org.osmdroid.tileprovider.modules.MapTileModuleProviderBase;
 import org.osmdroid.tileprovider.modules.OfflineTileProvider;
 import org.osmdroid.tileprovider.tilesource.FileBasedTileSource;
+import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.tileprovider.util.SimpleRegisterReceiver;
@@ -44,15 +45,20 @@ public class MainActivity extends AppCompatActivity{
 
         SimpleRegisterReceiver simpleReceiver = new SimpleRegisterReceiver(this);
 
-        OfflineTileProvider offlineTileProvider = new OfflineTileProvider(simpleReceiver, new File[] {this.getMapsFile()});
+        MyOfflineTileProvider offlineTileProvider = new MyOfflineTileProvider(simpleReceiver, new File[] {this.getMapsFile()});
         map = (MapView)findViewById(R.id.map);
         map.setTileProvider(offlineTileProvider);
         map.setTileSource(new FileBasedTileSource("tiles", 9, 13, 256, ".png", new String[] {"http://127.0.0.1"}));
 
+        /*final ITileSource tileSource = new XYTileSource( "HOT", 1, 20, 256, ".png",
+                new String[] {
+                        "http://cic.it-serv.ru/osm/" },"© OpenStreetMap contributors");
+        map.setTileSource(tileSource);*/
+
         IMapController mapController = map.getController();
         mapController.setZoom(13d);
         mapController.setCenter(new GeoPoint(56.141515, 47.232135));
-        map.setUseDataConnection(false);
+        map.setUseDataConnection(true);
         map.setMultiTouchControls(true);
 
         requestPermissionsIfNecessary(new String[] {
